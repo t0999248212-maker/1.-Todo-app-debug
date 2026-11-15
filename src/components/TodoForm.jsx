@@ -4,7 +4,10 @@ export default function TodoForm({ onAdd }) {
   const [text, setText] = useState("");
 
   function handleSubmit(event) {
-    onAdd(text);
+    event.preventDefault();
+    const trimmed = text.trim();
+    if (!trimmed) return;
+    onAdd(trimmed);
     setText("");
   }
 
@@ -16,7 +19,7 @@ export default function TodoForm({ onAdd }) {
           type="text"
           name="task"
           value={text}
-          onChange={(event) => setText(event.target)}
+          onChange={(event) => setText(event.target.value)}
           placeholder="Add a task"
           autoComplete="off"
         />

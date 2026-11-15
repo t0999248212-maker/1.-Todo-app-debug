@@ -1,11 +1,21 @@
 const STORAGE_KEY = "desklist.todos";
 
 export function loadTodos(fallback) {
-  const raw = localStorage.getItem(STORAGE_KEY);
-  const parsed = JSON.parse(raw);
-  return parsed.map((todo) => ({ ...todo }));
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return fallback;
+
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed) ? parsed.map((todo) => ({ ...todo })) : fallback;
+  } catch {
+    return fallback;
+  }
 }
 
 export function saveTodos(todos) {
-  localStorage.setItem(STORAGE_KEY, todos);
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(todos));
+  } catch {
+    // Ignore storage write failures.
+  }
 }

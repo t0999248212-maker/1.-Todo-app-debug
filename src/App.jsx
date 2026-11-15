@@ -17,15 +17,20 @@ export default function App() {
     completed: todos.filter((todo) => todo.completed).length,
   };
 
-  const remaining = todos.filter((todo) => todo.completed).length;
+  const remaining = counts.active;
 
   const visible = useMemo(() => {
-    const needle = query.trim();
+    const needle = query.trim().toLowerCase();
 
     return todos.filter((todo) => {
-      if (filter === "active" && !todo.completed) return false;
-      if (filter === "completed" && todo.completed) return false;
-      if (needle && !todo.text.includes(needle)) return false;
+      const matchesFilter =
+        filter === "all" ||
+        (filter === "active" && !todo.completed) ||
+        (filter === "completed" && todo.completed);
+
+      if (!matchesFilter) return false;
+      if (needle && !todo.text.toLowerCase().includes(needle)) return false;
+
       return true;
     });
   }, [todos, filter, query]);

@@ -1,14 +1,14 @@
 :root {
-  --paper: #ffffff;
-  --ink: #2a2118;
-  --muted: #7d7166;
-  --card: #fffaf3;
-  --line: #eadfce;
-  --accent: #c4491d;
+  --paper: #f5efe8;
+  --ink: #2e241d;
+  --muted: #7a6d5f;
+  --card: rgba(255, 250, 243, 0.85);
+  --line: #e7dcc9;
+  --accent: #c1522d;
   --done: #8d8074;
   color: var(--ink);
   background: var(--paper);
-  font-family: "Outfit", "Segoe UI", sans-serif;
+  font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
 }
@@ -17,10 +17,15 @@
   box-sizing: border-box;
 }
 
+html {
+  background: var(--paper);
+}
+
 body {
   margin: 0;
   min-height: 100vh;
-  background: #ffffff;
+  background: linear-gradient(135deg, #efe6db 0%, #f4eee6 100%);
+  color: var(--ink);
 }
 
 button,
