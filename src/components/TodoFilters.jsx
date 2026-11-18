@@ -12,7 +12,7 @@ export default function TodoFilters({ filter, counts, onFilter }) {
           key={value}
           type="button"
           className={value === filter ? "chip is-selected" : "chip"}
-          aria-pressed={value === filter}
+aria-pressed={value === filter}
           onClick={() => onFilter(value)}
         >
           <span>{label}</span>

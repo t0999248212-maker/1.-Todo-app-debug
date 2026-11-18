@@ -3,14 +3,15 @@ import { useState } from "react";
 export default function TodoForm({ onAdd }) {
   const [text, setText] = useState("");
 
-  function handleSubmit(event) {
-    event.preventDefault();
-    const trimmed = text.trim();
-    if (!trimmed) return;
-    onAdd(trimmed);
-    setText("");
-  }
+ function handleSubmit(event) {
+  event.preventDefault();
 
+  const trimmed = text.trim();
+  if (!trimmed) return;
+
+  onAdd(trimmed);
+  setText("");
+}
   return (
     <form className="composer" onSubmit={handleSubmit}>
       <label className="field">

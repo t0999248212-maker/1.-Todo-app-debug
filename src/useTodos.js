@@ -10,45 +10,48 @@ export function useTodos() {
   }, [todos]);
 
   function addTodo(text) {
-    const trimmed = text.trim();
-    if (!trimmed) return;
+    if (!text) return;
 
-    setTodos((previous) => [
-      ...previous,
+    setTodos([
+      ...todos,
       {
-        id: Date.now() + previous.length,
-        text: trimmed,
+       id: Date.now(),
+        text,
         completed: false,
       },
     ]);
   }
 
   function toggleTodo(id) {
-    setTodos((previous) =>
-      previous.map((todo) =>
-        todo.id === id ? { ...todo, completed: !todo.completed } : todo
-      )
-    );
-  }
+  setTodos((currentTodos) =>
+    currentTodos.map((todo) =>
+      todo.id === id
+        ? { ...todo, completed: !todo.completed }
+        : todo
+    )
+  );
+}
 
   function deleteTodo(id) {
-    setTodos((previous) => previous.filter((todo) => todo.id !== id));
-  }
-
+  setTodos((currentTodos) =>
+    currentTodos.filter((todo) => todo.id !== id)
+  );
+}
   function updateTodo(id, text) {
-    const trimmed = text.trim();
-    if (!trimmed) return;
+  if (!text.trim()) return;
 
-    setTodos((previous) =>
-      previous.map((todo) =>
-        todo.id === id ? { ...todo, text: trimmed } : todo
-      )
-    );
-  }
+  setTodos((currentTodos) =>
+    currentTodos.map((todo) =>
+      todo.id === id ? { ...todo, text: text.trim() } : todo
+    )
+  );
+}
 
-  function clearCompleted() {
-    setTodos((previous) => previous.filter((todo) => !todo.completed));
-  }
+ function clearCompleted() {
+  setTodos((currentTodos) =>
+    currentTodos.filter((todo) => !todo.completed)
+  );
+}
 
   return {
     todos,

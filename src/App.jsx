@@ -1,3 +1,4 @@
+import React from "react";
 import { useMemo, useState } from "react";
 import TodoFilters from "./components/TodoFilters";
 import TodoForm from "./components/TodoForm";
@@ -18,22 +19,21 @@ export default function App() {
   };
 
   const remaining = counts.active;
+ const visible = useMemo(() => {
+  const needle = query.trim().toLowerCase();
 
-  const visible = useMemo(() => {
-    const needle = query.trim().toLowerCase();
+  return todos.filter((todo) => {
+    const matchesFilter =
+      filter === "all" ||
+      (filter === "active" && !todo.completed) ||
+      (filter === "completed" && todo.completed);
 
-    return todos.filter((todo) => {
-      const matchesFilter =
-        filter === "all" ||
-        (filter === "active" && !todo.completed) ||
-        (filter === "completed" && todo.completed);
+    if (!matchesFilter) return false;
+    if (needle && !todo.text.toLowerCase().includes(needle)) return false;
 
-      if (!matchesFilter) return false;
-      if (needle && !todo.text.toLowerCase().includes(needle)) return false;
-
-      return true;
-    });
-  }, [todos, filter, query]);
+    return true;
+  });
+}, [todos, filter, query]);
 
   const emptyLabel =
     todos.length === 0 ? "Nothing on the list yet." : "No tasks match this view.";
